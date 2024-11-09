@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_HUB_CREDENTIALS = credentials('soujanya404')
+        DOCKER_IMAGE = "soujanya404/react-jenkins-docker-k8s"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pulls the code from the main branch of your GitHub repository
+                git branch: 'main', url: 'https://github.com/soujanya404/react-jenkins-docker-k8s.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    // Builds the Docker image using the Dockerfile in the repo
+                    docker.build(DOCKER_IMAGE)
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    // Authenticates to Docker Hub and pushes the image
+                    docker.withRegistry('https://index.docker.io/v1/', 'DOCKER_HUB_CREDENTIALS') {
+                        docker.image(DOCKER_IMAGE).push("latest")
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Deploys to Kubernetes using the deployment and service files
+                    sh "kubectl apply -f ~/k8s-deployment/k8s-deployment.yaml"
+                    sh "kubectl apply -f ~/k8s-deployment/k8s-service.yaml"
+                }
+            }
+        }
+    }
+}
