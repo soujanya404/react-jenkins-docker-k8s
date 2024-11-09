@@ -1,0 +1,78 @@
+
+/* src/App.css or src/styles.css */
+.app {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.start-btn {
+  padding: 12px 24px;
+  font-size: 18px;
+  color: #fff;
+  background: #ff416c;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.start-btn:hover {
+  background: #ff4b2b;
+  transform: scale(1.05);
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.grid-item {
+  width: 80px;
+  height: 80px;
+  background: #ffffff33;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.grid-item.active {
+  background: #ffe53b;
+  color: #333;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 229, 59, 0.7);
+  animation: pop-in 0.3s ease;
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1.1); }
+}
+
+.game-over {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: #ff4757;
+}
